@@ -1,4 +1,8 @@
 #!/usr/bin/python
+"""Just a thing I'm testing
+
+Apparently, this is where the module-level docstring goes
+"""
 
 import httplib2
 import os
@@ -8,8 +12,6 @@ from apiclient import discovery
 import oauth2client
 from oauth2client import client
 from oauth2client import tools
-
-
 
 #try:
 #    import argparse
@@ -21,7 +23,7 @@ SCOPES = 'https://www.googleapis.com/auth/drive'
 CLIENT_SECRET_FILE = 'client_secret.json'
 APPLICATION_NAME = 'only-just-a-test'
 
- 
+
 def get_credentials():
     """Gets valid user credentials from storage.
 
@@ -43,10 +45,10 @@ def get_credentials():
     if not credentials or credentials.invalid:
         flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
         flow.user_agent = APPLICATION_NAME
-        if flags:
-            credentials = tools.run_flow(flow, store, flags)
-        else: # Needed only for compatability with Python 2.6
-            credentials = tools.run(flow, store)
+#        if flags:
+        credentials = tools.run_flow(flow, store, flags)
+#        else: # Needed only for compatability with Python 2.6
+#            credentials = tools.run(flow, store)
         print('Storing credentials to ' + credential_path)
     return credentials
 
@@ -60,7 +62,7 @@ def main(argv):
     print(len(argv))
     fileName = argv[1]
 
-    
+
     credentials = get_credentials()
     http = credentials.authorize(httplib2.Http())
     service = discovery.build('drive', 'v2', http=http)
