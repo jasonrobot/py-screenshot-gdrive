@@ -14,10 +14,7 @@ from oauth2client import client
 from oauth2client import tools
 
 import time
-
 import subprocess
-from subprocess import Popen, PIPE
-
 import pyperclip
 
 try:
@@ -109,18 +106,10 @@ def main():
     result = files_resource.insert(media_body=file, body=metadata).execute()
 
     links = dict()
-    #this one opens in the google drive window. Not bad, but not fullscreen
-    #links['alternateLink'] = result.get('alternateLink', [])
     #this will give us a direct link to the file if we trim '&export=download' off the end
     links['webContentLink'] = result.get('webContentLink', [])
 
     image_link = links['webContentLink'].split('&')[0]
-    # print(image_link)
-
-    # for key in links:
-    #     print(key)
-    #     print(links[key])
-    #     print("")
 
     shortener_service = discovery.build('urlshortener', 'v1', http['urlshortener'])
     shortener_resource = shortener_service.url()
