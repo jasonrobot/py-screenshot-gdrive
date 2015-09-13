@@ -18,6 +18,8 @@ import time
 import subprocess
 from subprocess import Popen, PIPE
 
+import pyperclip
+
 try:
     import argparse
     parser = argparse.ArgumentParser(parents=[tools.argparser])
@@ -113,12 +115,12 @@ def main():
     links['webContentLink'] = result.get('webContentLink', [])
 
     image_link = links['webContentLink'].split('&')[0]
-    print(image_link)
+    # print(image_link)
 
-    for key in links:
-        print(key)
-        print(links[key])
-        print("")
+    # for key in links:
+    #     print(key)
+    #     print(links[key])
+    #     print("")
 
     shortener_service = discovery.build('urlshortener', 'v1', http['urlshortener'])
     shortener_resource = shortener_service.url()
@@ -126,9 +128,10 @@ def main():
         "longUrl": image_link
     }
     shortener_response = shortener_resource.insert(body=shortener_request_body).execute()
-    print(shortener_response.get('id', []))
+    short_url = shortener_response.get('id', [])
+    print("Url is: " + short_url)
 
-
+    pyperclip.copy(short_url)
 
 if __name__ == '__main__':
     main()
