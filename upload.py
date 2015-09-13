@@ -13,11 +13,13 @@ import oauth2client
 from oauth2client import client
 from oauth2client import tools
 
-#try:
-#    import argparse
-#    flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
-#except ImportError:
-#    flags = None
+try:
+    import argparse
+    parser = argparse.ArgumentParser(parents=[tools.argparser])
+    parser.add_argument('image')
+    flags = parser.parse_args()
+except ImportError:
+    flags = None
 
 SCOPES = 'https://www.googleapis.com/auth/drive'
 CLIENT_SECRET_FILE = 'client_secret.json'
@@ -52,28 +54,28 @@ def get_credentials():
         print('Storing credentials to ' + credential_path)
     return credentials
 
-def main(argv):
+def main():
     """Shows basic usage of the Google Drive API.
 
     Creates a Google Drive API service object and outputs the names and IDs
     for up to 10 files.
     """
 
-    print(len(argv))
-    fileName = argv[1]
-
+    #print(flags.image)
+    fileName = flags.image
 
     credentials = get_credentials()
     http = credentials.authorize(httplib2.Http())
     service = discovery.build('drive', 'v2', http=http)
 
+    #get the google drive files resource
     filesResource = service.files()
 
     #fileName = "image.png"
-    
-    result = filesResource.insert( media_body=fileName).execute()
+
+    result = filesResource.insert(media_body=fileName).execute()
     link = result.get('alternateLink', [])
     print(link)
 
 if __name__ == '__main__':
-    main(sys.argv)
+    main()
