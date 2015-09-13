@@ -13,10 +13,15 @@ import oauth2client
 from oauth2client import client
 from oauth2client import tools
 
+import time
+
+import subprocess
+from subprocess import Popen, PIPE
+
 try:
     import argparse
     parser = argparse.ArgumentParser(parents=[tools.argparser])
-    parser.add_argument('image')
+    #parser.add_argument('image')
     flags = parser.parse_args()
 except ImportError:
     flags = None
@@ -66,8 +71,14 @@ def main():
     for up to 10 files.
     """
 
+    image_file_name = "Screenshot_" + time.strftime("%Y-%m-%d_%H-%M-%S") + ".png"
+
+    #subprocess.call(["scrot"])
+    #Popen(["scrot", "-s",  image_file_name])
+    subprocess.call(["scrot", "-s", image_file_name])
+
     #print(flags.image)
-    fileName = flags.image
+    #fileName = flags.image
 
     credentials = get_credentials()
     http = dict()
@@ -91,7 +102,7 @@ def main():
         ]
     }
 
-    file = MediaFileUpload(fileName, mimetype="image/png", resumable=True)
+    file = MediaFileUpload(image_file_name, mimetype="image/png", resumable=True)
 
     result = files_resource.insert(media_body=file, body=metadata).execute()
 
@@ -116,6 +127,8 @@ def main():
     }
     shortener_response = shortener_resource.insert(body=shortener_request_body).execute()
     print(shortener_response.get('id', []))
+
+
 
 if __name__ == '__main__':
     main()
