@@ -6,9 +6,9 @@ Apparently, this is where the module-level docstring goes
 
 import httplib2
 import os
-import sys
 
 from apiclient import discovery
+from apiclient.http import MediaFileUpload
 import oauth2client
 from oauth2client import client
 from oauth2client import tools
@@ -68,12 +68,25 @@ def main():
     http = credentials.authorize(httplib2.Http())
     service = discovery.build('drive', 'v2', http=http)
 
-    #get the google drive files resource
-    filesResource = service.files()
+    #query = service.files().list(q="title contains 'screenshots'").execute().items[0].id
+    #print(query)
+    screenshot_folder = service.files().list(q="title contains 'screenshots'").execute()['items'][0]['id']
 
-    #fileName = "image.png"
+    #metadata = "{\"parents\":[{\"id\":\"screenshots\"}]}"
+    metadata = {
+        "mimeType": "image/png",
+        "parents":
+        [
+            {
+                "id": screenshot_folder
+            }
+        ]
+    }
 
-    result = filesResource.insert(media_body=fileName).execute()
+    file = MediaFileUpload(fileName, mimetype="image/png", resumable=True)
+
+    result = service.files().insert(media_body=file, body=metadata).execute()
+
     link = result.get('alternateLink', [])
     print(link)
 
