@@ -73,10 +73,11 @@ def main():
     image_file_name = "Screenshot_" + time.strftime("%Y-%m-%d_%H-%M-%S") + ".png"
 
     #take the screenshot with scrot
-    subprocess.call(["scrot", "-s", image_file_name])
+    image_file_path = "/tmp/" + image_file_name
+    subprocess.call(["scrot", "-s", image_file_path])
 
     conf = configparser.ConfigParser()
-    conf.read("settings.cfg")
+    conf.read("/home/jason/shoot-up-python/settings.cfg")
     if 'google_drive' in conf:
         screenshot_folder_name = conf['google_drive']['screenshot_folder']
 
@@ -95,6 +96,7 @@ def main():
 
     metadata = {
         "originalFileName": image_file_name,
+        "title": image_file_name,
         "mimeType": "image/png",
         "parents":
         [
@@ -105,7 +107,7 @@ def main():
     }
 
     #have to create the MediaFileUpload object when using a body in the insert call
-    file = MediaFileUpload(image_file_name, mimetype="image/png", resumable=True)
+    file = MediaFileUpload(image_file_path, mimetype="image/png", resumable=True)
 
     result = files_resource.insert(media_body=file, body=metadata).execute()
 
@@ -114,7 +116,7 @@ def main():
     image_link = link.split('&')[0]
 
     #run this through a url shortener just because
-    shortener_service = discovery.build('urlshortener', 'v1', http['urlshortener'])
+    shortener_service = discovery.build('urlshortener', 'v1', http=http['urlshortener'])
     shortener_resource = shortener_service.url()
     shortener_request_body = {
         "longUrl": image_link
