@@ -49,8 +49,7 @@ def get_credentials():
     credentials = dict()
     for key in auth_scopes:
         credential_path = os.path.join(credential_dir,
-                                       'only-just-a-test-' + key + '.json')
-
+                                       'shoot_up_python-' + key + '.json')
         store = oauth2client.file.Storage(credential_path)
         credentials[key] = store.get()
         if not credentials[key] or credentials[key].invalid:
