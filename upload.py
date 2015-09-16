@@ -74,7 +74,8 @@ def main():
 
     #take the screenshot with scrot
     image_file_path = "/tmp/" + image_file_name
-    subprocess.call(["scrot", "-s", image_file_path])
+    subprocess.call(["sleep", "0.2"])
+    subprocess.check_call(["scrot", "-s", image_file_path])
 
     conf = configparser.ConfigParser()
     conf.read("/home/jason/shoot-up-python/settings.cfg")
