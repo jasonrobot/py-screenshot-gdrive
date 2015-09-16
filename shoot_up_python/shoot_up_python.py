@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """Just a thing I'm testing
 
 Apparently, this is where the module-level docstring goes
@@ -6,8 +7,8 @@ Apparently, this is where the module-level docstring goes
 import httplib2
 import os
 
-from googleapiclient import discovery
-from googleapiclient.http import MediaFileUpload
+from apiclient import discovery
+from apiclient.http import MediaFileUpload
 import oauth2client
 from oauth2client import client
 from oauth2client import tools
