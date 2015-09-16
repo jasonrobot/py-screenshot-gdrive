@@ -63,7 +63,7 @@ def get_credentials():
             print('Storing ' + key + ' credentials to ' + credential_path)
     return credentials
 
-def main():
+def shoot_up():
     """
         Takes a screenshot with scrot and saves it.
         Uploads the screenshot to Google Drive.
@@ -128,5 +128,5 @@ def main():
     pyperclip.copy(short_url)
 
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
