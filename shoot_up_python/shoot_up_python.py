@@ -128,5 +128,5 @@ def shoot_up():
     pyperclip.copy(short_url)
 
 
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    shoot_up()
