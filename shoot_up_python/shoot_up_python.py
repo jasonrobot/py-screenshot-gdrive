@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 """Just a thing I'm testing
 
 Apparently, this is where the module-level docstring goes
@@ -50,8 +50,7 @@ def get_credentials():
     credentials = dict()
     for key in auth_scopes:
         credential_path = os.path.join(credential_dir,
-                                       'only-just-a-test-' + key + '.json')
-
+                                       'shoot_up_python-' + key + '.json')
         store = oauth2client.file.Storage(credential_path)
         credentials[key] = store.get()
         if not credentials[key] or credentials[key].invalid:
@@ -64,7 +63,7 @@ def get_credentials():
             print('Storing ' + key + ' credentials to ' + credential_path)
     return credentials
 
-def main():
+def shoot_up():
     """
         Takes a screenshot with scrot and saves it.
         Uploads the screenshot to Google Drive.
@@ -130,4 +129,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    shoot_up()
