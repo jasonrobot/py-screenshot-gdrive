@@ -26,8 +26,8 @@ try:
 except ImportError:
     flags = None
 
-CLIENT_SECRET_FILE = 'client_secret.json'
-APPLICATION_NAME = 'only-just-a-test'
+CLIENT_SECRET_FILE = '../data/client_secret.json'
+APPLICATION_NAME = 'shoot_up_python'
 
 
 def get_credentials():
