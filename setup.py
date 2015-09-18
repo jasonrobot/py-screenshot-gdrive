@@ -8,7 +8,14 @@ setup(name='shoot_up_python',
       license='gpl2',
       url='https://github.com/jasonrobot/shoot-up-python',
       packages=['shoot_up_python'],
-      install_requires=['googleapiclient',
+      install_requires=['google-api-python-client',
                         'httplib2',
-                        'oauthclient2'
-                        'pyperclip'])
+                        'oauth2client',
+                        'pyperclip'],
+      entry_points={
+          'console_scripts' : ['shoot-up-python=shoot_up_python.command_line:main']
+      },
+      include_package_data=True,
+      package_data={
+          '': ['client_secret.json', 'settings.cfg']
+      })

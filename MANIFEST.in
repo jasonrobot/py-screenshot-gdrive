@@ -1,0 +1,2 @@
+include shoot_up_python/client_secret.json
+include shoot_up_python/settings.cfg
