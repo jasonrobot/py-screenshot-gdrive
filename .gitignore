@@ -2,3 +2,7 @@ client_secret.json
 *.png
 *.pyc
 /dist/
+/arch_linux/
+/ubuntu/
+/build/
+/shoot_up_python.egg-info/
