@@ -8,10 +8,10 @@ xclip
 Installing:
 A .deb and an AUR package are in the works, but until then, you can always do
 one of three things:
+
 1. Download shoot_up_python-0.1.tar.gz and
    1. do `pip install shoot_up_python.tar.gz`
    2. extract the tarball and do `python setup.py install`
-
 2. Clone the whole repo and do `python setup.py install`
 
 
